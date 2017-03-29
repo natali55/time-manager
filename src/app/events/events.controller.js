@@ -59,6 +59,7 @@
                     date:newEventCopy.date
                 });
                 vm.newEvent = '';
+                vm.eventFormOpened = false;
                 utilsService.setUntouched(vm.EventsForm);
 
             };

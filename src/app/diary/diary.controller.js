@@ -62,6 +62,7 @@
                     date:new Date()
                 });
                 vm.newNote = '';
+                vm.noteFormOpened = false;
                 utilsService.setUntouched(vm.DiaryForm);
 
             };
