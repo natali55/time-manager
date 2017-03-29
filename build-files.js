@@ -1,18 +1,9 @@
 exports.scripts = [
 	{
 		files: [
-			'components/lodash/lodash.js'
-		],
-		min: true,
-		concat: 'scripts/libs.js'
-	},
-	{
-		files: [
 			'components/angular/angular.js',
 			'components/angular-ui-router/release/angular-ui-router.js',
 			'components/angular-sanitize/angular-sanitize.js',
-			'components/angular-animate/angular-animate.js',
-			'components/ngstorage/ngStorage.js'
 		],
 		min: true,
 		concat: 'scripts/ng-core.js'
@@ -20,9 +11,7 @@ exports.scripts = [
 	{
 		files: [
 			'components/angular-bootstrap/ui-bootstrap.min.js',
-			'components/angular-loading-bar/build/loading-bar.min.js',
 			'components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-			'components/ng-dialog/js/ngDialog.min.js'
 		],
 		min: true,
 		concat: 'scripts/ng-vendor.js'
