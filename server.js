@@ -12,6 +12,6 @@ app.get('*', function(req, res) {
 	res.sendFile(__dirname + '/build/index.html');
 });
 
-var server = app.listen(7007, function () {
-	console.log('Application is listening at http://localhost:7007');
+var server = app.listen(9009, function () {
+	console.log('Application is listening at http://localhost:9009');
 });
