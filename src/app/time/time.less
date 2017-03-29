@@ -1,0 +1,25 @@
+.tm-time {
+  .flex-item;
+  .flex-column;
+  .flex-align-center;
+  .flex-justify-center;
+  font-family: "DeliusUnicase";
+  .tm-time__main-clock {
+    font-size: 150px;
+    text-align: center;
+    position: relative;
+    top:-40px;
+    @media @tablet {
+      font-size: 100px;
+    }
+    @media @mobile {
+      font-size: 50px;
+    }
+  }
+  .tm-time__date {
+    text-align: center;
+    font-size: 50px;
+    opacity: .7;
+    padding: 10px 0px ;
+  }
+}

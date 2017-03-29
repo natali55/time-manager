@@ -1,0 +1,33 @@
+section.tm-diary
+    h2.tm-main-page-header Diary
+
+    button.tm-btn-style.tm-btn-style--main(ng-click="diary.noteFormOpened = !diary.noteFormOpened") Add Note
+    form.tm-diary_form(ng-if="diary.noteFormOpened" name="diary.DiaryForm", novalidate)
+        input.tm-input--main(type="text", ng-model="diary.newNote.name", name="Name", required,
+        placeholder="Caption", ng-class="{'tm-input--main--error': diary.DiaryForm.Name.$invalid && diary.DiaryForm.Name.$touched}")
+        textarea.tm-textarea--main(rows="4", ng-model="diary.newNote.description", name="Description", required,
+        placeholder="Text", ng-class="{'tm-textarea--main--error': diary.DiaryForm.Description.$invalid && diary.DiaryForm.Description.$touched}")
+        button.tm-btn-style.tm-btn-style--main(type="submit",ng-click="diary.addNewNote()") Add
+    h3.tm-main-page-subheader(ng-if="diary.notes.length") Notes
+    ul.tm-diary__list
+        li(ng-repeat="note in diary.notes")
+            .flex-item.flex-align-start.tm-width-100
+                .tm-width-100(ng-if="!note.isEditing")
+                    h4
+                        span {{note.name}}
+                    p(ng-bind-html="note.description | highlight: note.highlightWord")
+                    p.tm-minor-date {{note.date | date:'EEEE, MMMM d, yyyy'}}
+                    button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Highlight some word
+                    //label(for="{{$index}}") T
+                    div(ng-if="note.isHighlightInputOpen")
+                        input.tm-input--main(type="text", ng-model="note.highlightWord", placeholder="Type the word")
+                        button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Done
+                form.tm-diary__editing-form.tm-width-100(ng-if="note.isEditing", novalidate)
+                    input.tm-input--main(type="text", ng-model="note.name", name="Name",
+                    placeholder="Caption",)
+                    textarea.tm-textarea--main(rows="4", ng-model="note.description", name="Description",
+                    placeholder="Text")
+                    button.tm-btn-style.tm-btn-style--main(type="submit",ng-click="diary.saveNote(note)") Save
+                button.tm-edit-btn(type="button", ng-click="diary.editNote(note)")
+                button.tm-delete-btn(type="button", ng-click="diary.deleteNote($index)")
+

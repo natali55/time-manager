@@ -1,0 +1,25 @@
+section.tm-events
+    h2.tm-main-page-header Events
+
+    button.tm-btn-style.tm-btn-style--main(ng-click="events.eventFormOpened = !events.eventFormOpened") Add Event
+    form.tm-events__form(ng-if="events.eventFormOpened" name="events.EventsForm", novalidate)
+        input.tm-input--main(type="text", ng-model="events.newEvent.name", name="Name", required,
+        placeholder="Event Header", ng-class="{'tm-input--main--error': events.EventsForm.Name.$invalid && events.EventsForm.Name.$touched}")
+        input.tm-input--main(type="date", ng-model="events.newEvent.date", name="Date", required,
+        ng-class="{'tm-input--main--error': events.EventsForm.Date.$invalid && events.EventsForm.Date.$touched}")
+        textarea.tm-textarea--main(rows="3", ng-model="events.newEvent.description", name="Description", required,
+        placeholder="Event Description", ng-class="{'tm-textarea--main--error': events.EventsForm.Description.$invalid && events.EventsForm.Description.$touched}")
+        button.tm-btn-style.tm-btn-style--main(type="submit",ng-click="events.addNewEvent()") Add
+    h3.tm-main-page-subheader(ng-if="events.events.length") Events list
+    ul.tm-events__list
+        li(ng-repeat="event in events.events")
+            .flex-item.flex-align-start.tm-width-100
+                .tm-events__list__check
+                    check-box(check-box-id="{{event.id}}", check-box-model="event.isCompleted")
+                .tm-events__list__info
+                    h4
+                        strong {{event.name}}
+                    p {{event.description}}
+                    p.tm-minor-date {{event.date | date:'EEEE, MMMM d, yyyy'}}
+            button.tm-delete-btn(type="button", ng-click="events.deleteEvent($index)")
+
