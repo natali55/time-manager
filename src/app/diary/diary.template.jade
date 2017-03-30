@@ -17,7 +17,7 @@ section.tm-diary
                         span {{note.name}}
                     p(ng-bind-html="note.description | highlight: note.highlightWord")
                     p.tm-minor-date {{note.date | date:'EEEE, MMMM d, yyyy'}}
-                    button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Highlight some word
+                    button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Highlight important words
                     //label(for="{{$index}}") T
                     div(ng-if="note.isHighlightInputOpen")
                         input.tm-input--main(type="text", ng-model="note.highlightWord", placeholder="Type the word")

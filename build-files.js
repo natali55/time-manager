@@ -1,6 +1,13 @@
 exports.scripts = [
 	{
 		files: [
+			'components/lodash/lodash.js'
+		],
+		min: true,
+		concat: 'scripts/libs.js'
+	},
+	{
+		files: [
 			'components/angular/angular.js',
 			'components/angular-ui-router/release/angular-ui-router.js',
 			'components/angular-sanitize/angular-sanitize.js',
