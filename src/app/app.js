@@ -3,6 +3,7 @@
 
     var appDependencies = [
         'ui.router',
+        'ngDialog',
         'app.events',
         'app.header',
         'app.footer',

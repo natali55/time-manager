@@ -19,6 +19,7 @@ exports.scripts = [
 		files: [
 			'components/angular-bootstrap/ui-bootstrap.min.js',
 			'components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+			'components/ng-dialog/js/ngDialog.min.js'
 		],
 		min: true,
 		concat: 'scripts/ng-vendor.js'
@@ -53,6 +54,13 @@ exports.styles = [
 		],
 		min: true,
 		concat: 'styles/bootstrap.css'
+	},
+	{
+		files: [
+			'components/ng-dialog/css/ngDialog.min.css',
+			'components/ng-dialog/css/ngDialog-theme-default.min.css'
+		],
+		min: true
 	},
 	{
 		files: [
