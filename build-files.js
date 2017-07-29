@@ -19,7 +19,8 @@ exports.scripts = [
 		files: [
 			'components/angular-bootstrap/ui-bootstrap.min.js',
 			'components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-			'components/ng-dialog/js/ngDialog.min.js'
+			'components/ng-dialog/js/ngDialog.min.js',
+			'components/ngstorage/ngStorage.min.js',
 		],
 		min: true,
 		concat: 'scripts/ng-vendor.js'

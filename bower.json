@@ -5,6 +5,7 @@
   "dependencies": {
     "angular": "1.5.8",
     "angular-ui-router": "^0.2.18",
+    "ngstorage": "^0.3.10",
     "angular-sanitize": "1.5.1",
     "bootstrap": "^3.3.6",
     "lodash": "^4.6.1"
