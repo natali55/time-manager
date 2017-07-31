@@ -6,12 +6,12 @@
         .config(function ($stateProvider) {
             $stateProvider
                 .state('app.events', {
-                    url: "/events",
+                    url: '/events',
                     views: {
                         'content@app': {
-                            templateUrl: "app/events/events.template.html",
-                            controller: "EventsController",
-                            controllerAs: "events"
+                            templateUrl: 'app/events/events.template.html',
+                            controller: 'EventsController',
+                            controllerAs: 'events'
                         }
                     }
                 });

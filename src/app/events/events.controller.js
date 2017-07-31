@@ -10,7 +10,7 @@
                 $localStorage.events = vm.events;
                 vm.eventFormOpened = false;
                 vm.newEvent = '';
-            }
+            };
             vm.deleteEvent = function($index) {
                 vm.events.splice($index,1);
             };

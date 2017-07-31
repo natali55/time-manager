@@ -1,168 +1,83 @@
 'use strict';
 
-var gulp = require('gulp'),
-	gutil = require('gulp-util'),
-	less = require('gulp-less'),
-	jade = require('gulp-jade'),
-	plumber = require('gulp-plumber'),
-	del = require('del'),
-	run = require('run-sequence'),
-	path = require('path'),
-	_ = require('lodash'),
-	glob = require('glob'),
-	es = require('event-stream'),
-	filter = require('gulp-filter'),
-	newer = require('gulp-newer');
+const gulp = require('gulp');
+const less = require('gulp-less');
+const autoprefixer = require('gulp-autoprefixer');
+const pug = require('gulp-pug');
+const plumber = require('gulp-plumber');
+const del = require('del');
+const run = require('run-sequence');
+const path = require('path');
+const glob = require('glob');
+const es = require('event-stream');
+const filter = require('gulp-filter');
+const html2js = require('gulp-ng-html2js');
+const concat = require('gulp-concat');
+const annotate = require('gulp-ng-annotate');
+const uglifycss = require('gulp-uglifycss');
+const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
+const server = require( 'gulp-develop-server' );
 
-var files = require('./build-files.js');
+const config = require('./modules/gulp/config.js');
+const devTasks = require('./modules/gulp/index.js');
+const helpers = require('./modules/gulp/helpers/index.js');
+const files = require('./modules/gulp/build-files/index.js');
 
-var paths = {
-	src: 'src',
-	build: 'build'
-};
+/**
+ * @description
+ * Task `assets`.
+ * Get all files from assets folder and move to build folder
+ *
+ * */
 
-function toArray(a) {
-	if(undefined === a) {
-		return [];
-	}
+gulp.task('assets', () => gulp.src(config.sources.assets, { base: config.paths.src })
+	.pipe(gulp.dest(config.paths.build)));
 
-	return Array.isArray(a) ? a : [a];
-}
+/**
+ * @description
+ * Task `fonts`.
+ * Get all font files from fonts folder and move to build folder
+ *
+ * */
+gulp.task('fonts', () => es.merge(files.fonts.map(conf => helpers.dest(conf, helpers.src(conf)))));
 
-function src(conf, production){
-	var _ignore = filter(function(file){
-		return '_' !== path.basename(file.path).charAt(0);
-	});
+/**
+ * @description
+ * Task `clean`. For remove build folder
+ *
+ * */
+gulp.task('clean', () => del(config.paths.build));
 
-	var _src = paths.src;
-	var _files = toArray(conf.files).map(function (f) {
-		if(Array.isArray(f)) {
-			f = f[production ? 1 : 0];
-		}
-		return path.join(_src, f);
-	});
+gulp.task('server:start', () => server.listen({ path: './server.js' }));
 
-	return gulp.src(_files, {
-		base: path.join(_src, conf.base || '')
-	}).pipe(_ignore);
-}
+/**
+ * @description
+ * Task `build:dev`.
+ * Build project (js, css, assets, fonts, html)
+ *
+ *
+ * */
+gulp.task('build:dev',
+	next => run('clean', ['styles:dev', 'scripts:dev', 'views:dev', 'assets', 'fonts'],
+	'index:dev', next));
 
-function destPath(conf) {
-	return path.join(paths.build, conf.out || '');
-}
+/**
+ * @description
+ * Task `build:dev`.
+ * By default run `build:dev` task
+ *
+ * */
+gulp.task('default', next => run('build:dev', next));
 
-function dest(conf, stream) {
-	return stream.pipe(gulp.dest(destPath(conf)));
-}
+/**
+ * @description
+ * Task `live`.
+ * Run `build:dev` task and run `watch` task
+ *
+ * */
+gulp.task('live', next => run('build:dev', 'watch', 'server:start', next));
 
-gulp.task('clean', function () {
-	return del(paths.build);
-});
-
-gulp.task('less', function () {
-	return gulp.src('./src/app/app.less')
-		.pipe(less())
-		.pipe(gulp.dest('./build/app'));
-});
-
-gulp.task('styles', function () {
-	return es.merge(files.styles.map(function (conf) {
-
-		var stream = src(conf)
-			.pipe(plumber());
-
-		if(conf.less) {
-			stream = stream.pipe(less());
-		}
-
-		return dest(conf, stream);
-	}));
-});
-
-gulp.task('views', function() {
-	return gulp.src('./src/app/**/*.jade')
-		.pipe(jade())
-		.pipe(gulp.dest('./build/app'))
-});
-
-gulp.task('assets', function() {
-	return gulp.src('./src/assets/**/*')
-		.pipe(gulp.dest('./build/assets'))
-});
-
-gulp.task('scripts', function() {
-	return es.merge(files.scripts.map(function (conf) {
-		var stream = src(conf)
-			.pipe(plumber())
-			.pipe(gulp.dest(paths.build));
-		return dest(conf, stream);
-	}));
-});
-
-gulp.task('index', function () {
-	function extFilter(ext) {
-		return function (name) {
-			return ext === path.extname(name);
-		};
-	}
-
-	function skipFilter(name){
-		return '_' !== path.basename(name).charAt(0);
-	}
-
-	function listFiles(source) {
-		var res = source.map(function (conf) {
-			return toArray(conf.files).map(function (pattern) {
-				if(Array.isArray(pattern)) {
-					pattern = pattern[0];
-				}
-				return glob.sync(pattern, {cwd: paths.src});
-			});
-		});
-
-		return _.uniq(_.flattenDeep(res, true));
-	}
-
-
-	var _scripts = listFiles(files.scripts)
-		.filter(extFilter('.js'))
-		.filter(skipFilter);
-
-	var _styles = listFiles(files.styles)
-		.map(function(name){
-			return name.replace(/\.(less)$/, '.css');
-		})
-		.filter(extFilter('.css'))
-		.filter(skipFilter);
-
-	return gulp.src('src/index.jade')
-		.pipe(jade({
-			pretty: true,
-			locals: {
-				production: false,
-				scripts: _scripts,
-				styles: _styles
-			}
-		}))
-		.pipe(gulp.dest(paths.build));
-});
-
-gulp.task('watch', function () {
-	gulp.watch('./src/*.jade', ['index']);
-	gulp.watch('./src/app/**/*.jade', ['views']);
-	gulp.watch('./src/**/*.less', ['less']);
-	gulp.watch('./src/app/**/*.js', ['scripts']);
-});
-
-gulp.task('build-develop', function(next) {
-	//run('clean', next);
-	return run('clean', ['less', 'styles', 'scripts', 'index', 'views', 'assets'], next);
-});
-
-gulp.task('build', function(next){
-	return run('build-develop', next);
-});
-
-gulp.task('live', function(next){
-	return run('build', 'watch', next);
-});
+gulp.task('build:production',
+	next => run('clean', ['styles:production', 'scripts:production', 'views:production', 'assets', 'fonts'],
+	'index:production', next));

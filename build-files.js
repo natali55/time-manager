@@ -1,7 +1,7 @@
 exports.scripts = [
 	{
 		files: [
-			'components/lodash/lodash.js'
+		'components/lodash/lodash.js'
 		],
 		min: true,
 		concat: 'scripts/libs.js'
