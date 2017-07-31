@@ -3,15 +3,17 @@
 
     var appDependencies = [
         'ui.router',
-        'ngDialog',
         'ngStorage',
+        'ui.calendar',
+        'app.modals',
         'app.events',
         'app.header',
         'app.footer',
         'app.components',
         'app.time',
         'app.diary',
-        'app.shared'
+        'app.shared',
+        'app.calendar'
     ];
     angular.module('app', appDependencies);
 })();

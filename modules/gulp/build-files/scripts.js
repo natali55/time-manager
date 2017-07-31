@@ -5,6 +5,7 @@ module.exports = [
         files: [
             'components/lodash/lodash.js',
             'components/jquery/dist/jquery.js',
+            'components/moment/min/moment.min.js'
         ],
         min: true,
         concat: 'scripts/libs.js'
@@ -24,6 +25,9 @@ module.exports = [
             'components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'components/ng-dialog/js/ngDialog.min.js',
             'components/ngstorage/ngStorage.min.js',
+            'components/angular-ui-calendar/src/calendar.js',
+            'components/fullcalendar/dist/fullcalendar.min.js',
+            'components/fullcalendar/dist/gcal.js'
         ],
         min: true,
         concat: 'scripts/ng-vendor.js'

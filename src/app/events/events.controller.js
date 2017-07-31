@@ -3,35 +3,48 @@
 
     angular
         .module('app.events')
-        .controller('EventsController',['$localStorage', 'utilsService', 'defaultEvents', function($localStorage, utilsService, defaultEvents){
-            var vm = this;
-            var init = function () {
+        .controller('EventsController',['$localStorage', 'utilsService', 'defaultEvents', 'ModalsService', function ($localStorage, utilsService, defaultEvents, ModalsService) {
+            let vm = this;
+            let dialog;
+            let init = function () {
                 vm.events = $localStorage.events || defaultEvents;
                 $localStorage.events = vm.events;
                 vm.eventFormOpened = false;
                 vm.newEvent = '';
             };
-            vm.deleteEvent = function($index) {
-                vm.events.splice($index,1);
+            vm.deleteEvent = function ($index) {
+                if (dialog) {
+                    return;
+                }
+                dialog = ModalsService.confirm({
+                    text: 'Are you sure you want to delete this event?',
+                    buttons: ['yes', 'no']
+                });
+                dialog.closePromise.then(function (close) {
+                    dialog = false;
+                    if (close.value === 'yes') {
+                        vm.events.splice($index, 1);
+                    }
+                });
             };
-            vm.addNewEvent = function() {
-                var newId, newEventCopy;
-                if (!utilsService.validateForm(vm.EventsForm) || !vm.newEvent.date) {
+            vm.addNewEvent = function () {
+                let newId;
+                let newEventCopy;
+                if (!utilsService.validateForm(vm.EventsForm) || !vm.newEvent.start) {
                     return;
                 }
                 newId = utilsService.generateId(vm.events);
                 newEventCopy = angular.copy(vm.newEvent);
                 vm.events.unshift({
-                    id:newId,
-                    name:newEventCopy.name,
-                    description:newEventCopy.description,
-                    isCompleted:false,
-                    date:newEventCopy.date
+                    id: newId,
+                    title: newEventCopy.name,
+                    description: newEventCopy.description,
+                    isCompleted: false,
+                    start: newEventCopy.start
                 });
                 vm.newEvent = '';
                 vm.eventFormOpened = false;
                 utilsService.setUntouched(vm.EventsForm);
-
             };
             init();
 

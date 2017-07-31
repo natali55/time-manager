@@ -5,14 +5,14 @@
   font-style: normal;
   font-weight: 700;
 
-  src:local('DeliusUnicase Bold'), local('DeliusUnicase-Bold'), url("../assets/fonts/DeliusUnicase/DeliusUnicase.ttf") format("truetype");
+  src:local('DeliusUnicase Bold'), local('DeliusUnicase-Bold'), url("../fonts/DeliusUnicase/DeliusUnicase-Bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "DeliusUnicase";
   font-style: normal;
   font-weight: 400;
 
-  src:local('DeliusUnicase Regular'), local('DeliusUnicase-Regular'), url("../assets/fonts/DeliusUnicase/DeliusUnicase-Regular.ttf") format("truetype");
+  src:local('DeliusUnicase Regular'), local('DeliusUnicase-Regular'), url("../fonts/DeliusUnicase/DeliusUnicase-Regular.ttf") format("truetype");
 }
 html {
   height: 100%;
@@ -37,6 +37,7 @@ body {
   padding-bottom: 70px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow: hidden;
   font-size: 16px;
   .flex-item;
   .flex-align-stretch;
@@ -112,6 +113,7 @@ body {
   outline: none;
   .transition(all 0.2s);
   margin: 10px 0px;
+  cursor: pointer;
   &--main {
     border:1px solid @body-color;
     background-color: @body-bg-color;
@@ -119,6 +121,14 @@ body {
     &:hover {
       background-color: @nav-active-link;
       //border-color: @nav-active-link;
+    }
+  }
+  &--no-cancel {
+    border: 1px solid @body-bg-color;
+    background-color: @body-color;
+    color: @body-bg-color;
+    &:hover {
+      background-color: @hover-cancel-btn;
     }
   }
   &--small {
