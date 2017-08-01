@@ -6,13 +6,15 @@
         {
             templateUrl: 'app/_components/calendar/calendar.template.html',
             bindings: {
-                eventSources: '=',
-                alertOnEventClick: '='
+                eventSource: '=',
+                alertOnEventClick: '=',
+                alertOnDrop: '='
             },
             controller: tmCalendarController
         });
     function tmCalendarController($scope) {
         var vm = this;
+        vm.eventSources = angular.copy(vm.eventSource);
         vm.eventSources = Array.of(vm.eventSources);
         vm.uiConfig = {
             calendar: {

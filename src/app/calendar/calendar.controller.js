@@ -13,6 +13,15 @@
             vm.alertOnEventClick = (date) => {
                 alert(date.title + ' was clicked ');
             };
+            vm.alertOnDrop = (event, delta) => {
+                let droppedEventIndex;
+                droppedEventIndex = vm.events.findIndex(function (value) {
+                    if (value.id === this.id) {
+                        return true;
+                    }
+                }, event);
+                vm.events[droppedEventIndex].start = new Date(event.start);
+            };
             vm.deleteEvent = function($index) {
                 vm.events.splice($index,1);
             };
