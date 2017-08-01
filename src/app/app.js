@@ -5,6 +5,7 @@
         'ui.router',
         'ngStorage',
         'ui.calendar',
+        'ngSanitize',
         'app.modals',
         'app.events',
         'app.header',

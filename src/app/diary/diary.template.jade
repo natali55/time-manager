@@ -3,7 +3,7 @@ section.tm-diary
 
     button.tm-btn-style.tm-btn-style--main(ng-click="diary.noteFormOpened = !diary.noteFormOpened") Add Note
     form.tm-diary_form(ng-if="diary.noteFormOpened" name="diary.DiaryForm", novalidate)
-        input.tm-input--main(type="text", ng-model="diary.newNote.name", name="Name", required,
+        input.tm-input--main(type="text", ng-model="diary.newNote.title", name="Name", required,
         placeholder="Caption", ng-class="{'tm-input--main--error': diary.DiaryForm.Name.$invalid && diary.DiaryForm.Name.$touched}")
         textarea.tm-textarea--main(rows="4", ng-model="diary.newNote.description", name="Description", required,
         placeholder="Text", ng-class="{'tm-textarea--main--error': diary.DiaryForm.Description.$invalid && diary.DiaryForm.Description.$touched}")
@@ -14,16 +14,16 @@ section.tm-diary
             .flex-item.flex-align-start.tm-width-100
                 .tm-width-100(ng-if="!note.isEditing")
                     h4
-                        span {{note.name}}
+                        span {{note.title}}
                     p(ng-bind-html="note.description | highlight: note.highlightWord")
-                    p.tm-minor-date {{note.date | date:'EEEE, MMMM d, yyyy'}}
+                    p.tm-minor-date {{note.start | date:'EEEE, MMMM d, yyyy'}}
                     button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Highlight important words
                     //label(for="{{$index}}") T
                     div(ng-if="note.isHighlightInputOpen")
                         input.tm-input--main(type="text", ng-model="note.highlightWord", placeholder="Type the word")
                         button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Done
                 form.tm-diary__editing-form.tm-width-100(ng-if="note.isEditing", novalidate)
-                    input.tm-input--main(type="text", ng-model="note.name", name="Name",
+                    input.tm-input--main(type="text", ng-model="note.title", name="Name",
                     placeholder="Caption",)
                     textarea.tm-textarea--main(rows="4", ng-model="note.description", name="Description",
                     placeholder="Text")

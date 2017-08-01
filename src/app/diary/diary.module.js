@@ -1,5 +1,5 @@
-(function() {
+(function () {
     'use strict';
 
-    angular.module('app.diary', ['ngSanitize']);
+    angular.module('app.diary', []);
 })();

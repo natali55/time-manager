@@ -4,7 +4,7 @@
         .service('utilsService', [
             function () {
                 var exports = {
-                    validateForm: function (form) {
+                    validateForm(form) {
                         if (form.$invalid) {
                             angular.forEach(form.$error, function (field) {
                                 angular.forEach(field, function (errorField) {
@@ -15,10 +15,10 @@
                         }
                         return true;
                     },
-                    setUntouched: function (form) {
-                                form.$setUntouched();
+                    setUntouched(form) {
+                        form.$setUntouched();
                     },
-                    generateId: function(arr) {
+                    generateId(arr) {
                         if (!arr[0]) {
                             return 1;
                         }

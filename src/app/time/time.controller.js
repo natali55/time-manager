@@ -4,7 +4,7 @@
     angular
         .module('app.time')
         .controller('TimeController', function(){
-            var vm = this;
+            let vm = this;
             vm.date = new Date();
         });
 })();

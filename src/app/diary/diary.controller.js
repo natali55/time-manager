@@ -1,65 +1,51 @@
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('app.diary')
-        .controller('DiaryController',['utilsService', function(utilsService){
-            var vm = this;
-            function init(){
-                vm.notes = [
-                    {
-                        id:'4',
-                        name:'Meeting with Lindsay',
-                        description:'We have to meet near the caffe in the city center center caffe to meet',
-                        date:new Date('11/11/2016'),
-                        highlightWord:''
-                    },
-                    {
-                        id:'3',
-                        name:'Some',
-                        description:'We have to meet near the caffe in the city center ',
-                        date:new Date('11/11/2016'),
-                        highlightWord:''
-                    },
-                    {
-                        id:'2',
-                        name:'Event 1',
-                        description:'We have to meet near the caffe in the city center ',
-                        date:new Date('11/11/2016'),
-                        highlightWord:''
-                    },
-                    {
-                        id:'1',
-                        name:'Mother',
-                        description:'We have to meet near the caffe in the city center ',
-                        date:new Date('11/11/2016'),
-                        highlightWord:'near'
-                    }
-                ];
+        .controller('DiaryController', ['$localStorage', 'utilsService', 'ModalsService', 'defaultNotes', function ($localStorage, utilsService, ModalsService, defaultNotes) {
+            let vm = this;
+            let dialog;
+            let init = () => {
+                vm.notes = $localStorage.notes || defaultNotes;
+                $localStorage.notes = vm.notes;
                 vm.noteFormOpened = false;
                 vm.newNote = '';
-            }
-            vm.deleteNote = function($index) {
-                vm.notes.splice($index,1);
             };
-            vm.editNote = function(note){
+            vm.deleteNote = ($index) => {
+                if (dialog) {
+                    return;
+                }
+                dialog = ModalsService.confirm({
+                    text: 'Are you sure you want to delete this note?',
+                    buttons: ['yes', 'no']
+                });
+                dialog.closePromise.then(function (close) {
+                    dialog = false;
+                    if (close.value === 'yes') {
+                        vm.notes.splice($index, 1);
+                    }
+                });
+            };
+            vm.editNote = (note) => {
                 note.isEditing = !note.isEditing;
             };
-            vm.saveNote = function(note){
+            vm.saveNote = (note) => {
                 note.isEditing = false;
             };
-            vm.addNewNote = function() {
-                var newId, newNoteCopy;
+            vm.addNewNote = () => {
+                let newId;
+                let newNoteCopy;
                 if (!utilsService.validateForm(vm.DiaryForm)) {
                     return;
                 }
                 newId = utilsService.generateId(vm.notes);
                 newNoteCopy = angular.copy(vm.newNote);
                 vm.notes.unshift({
-                    id:newId,
-                    name:newNoteCopy.name,
-                    description:newNoteCopy.description,
-                    date:new Date()
+                    id: newId,
+                    title: newNoteCopy.title,
+                    description: newNoteCopy.description,
+                    start: new Date()
                 });
                 vm.newNote = '';
                 vm.noteFormOpened = false;

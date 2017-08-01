@@ -3,16 +3,16 @@
 
     angular
         .module('app.events')
-        .controller('EventsController',['$localStorage', 'utilsService', 'defaultEvents', 'ModalsService', function ($localStorage, utilsService, defaultEvents, ModalsService) {
+        .controller('EventsController', ['$localStorage', 'utilsService', 'defaultEvents', 'ModalsService', function ($localStorage, utilsService, defaultEvents, ModalsService) {
             let vm = this;
             let dialog;
-            let init = function () {
+            let init = () => {
                 vm.events = $localStorage.events || defaultEvents;
                 $localStorage.events = vm.events;
                 vm.eventFormOpened = false;
                 vm.newEvent = '';
             };
-            vm.deleteEvent = function ($index) {
+            vm.deleteEvent = ($index) => {
                 if (dialog) {
                     return;
                 }
@@ -27,7 +27,7 @@
                     }
                 });
             };
-            vm.addNewEvent = function () {
+            vm.addNewEvent = () => {
                 let newId;
                 let newEventCopy;
                 if (!utilsService.validateForm(vm.EventsForm) || !vm.newEvent.start) {
@@ -37,7 +37,7 @@
                 newEventCopy = angular.copy(vm.newEvent);
                 vm.events.unshift({
                     id: newId,
-                    title: newEventCopy.name,
+                    title: newEventCopy.title,
                     description: newEventCopy.description,
                     isCompleted: false,
                     start: newEventCopy.start

@@ -13,6 +13,7 @@
         });
     function tmCalendarController($scope) {
         var vm = this;
+        vm.eventSources = Array.of(vm.eventSources);
         vm.uiConfig = {
             calendar: {
                 height: 500,
