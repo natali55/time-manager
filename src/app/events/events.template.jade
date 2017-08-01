@@ -12,10 +12,10 @@ section.tm-events
         button.tm-btn-style.tm-btn-style--main(type="submit",ng-click="events.addNewEvent()") Add
     h3.tm-main-page-subheader(ng-if="events.events.length") Events list
     ul.tm-events__list
-        li(ng-repeat="event in events.events")
+        li(ng-repeat="event in events.events track by event.id")
             .flex-item.flex-align-start.tm-width-100
                 .tm-events__list__check
-                    check-box(check-box-id="{{event.id}}", check-box-model="event.isCompleted")
+                    check-box(check-box-id="{{event.id}}", check-box-model="event.isCompleted", check-box-disabled="event.isCompleted", check-box-change="events.onDoneEvent", element-to-change="event")
                 .tm-events__list__info
                     h4
                         strong {{event.title}}

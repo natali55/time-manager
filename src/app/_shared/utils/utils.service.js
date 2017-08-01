@@ -23,6 +23,11 @@
                             return 1;
                         }
                         return +(arr[0].id) + 1;
+                    },
+                    checkIfPastDate(date) {
+                        var dateNow = new Date();
+                        var dateToCheck = new Date(date);
+                        return ((dateNow.getTime() - dateToCheck.getTime()) > 0);
                     }
 
                 };

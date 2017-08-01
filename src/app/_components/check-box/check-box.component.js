@@ -7,7 +7,10 @@
             templateUrl: 'app/_components/check-box/check-box.template.html',
             bindings: {
                 checkBoxId: '@',
-                checkBoxModel: '='
+                checkBoxModel: '=',
+                checkBoxDisabled: '=',
+                checkBoxChange: '=',
+                elementToChange: '='
             }
         });
 })();

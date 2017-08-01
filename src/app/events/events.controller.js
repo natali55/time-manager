@@ -27,6 +27,26 @@
                     }
                 });
             };
+            vm.onDoneEvent = (event) => {
+                if (!utilsService.checkIfPastDate(event.start)) {
+                    //alert('Opps, this event is future event and can\'t be completed yet');
+                    event.isCompleted = false;
+                    return;
+                }
+                if (dialog) {
+                    return;
+                }
+                dialog = ModalsService.confirm({
+                    text: 'Are you sure you want to make this event completed? You won\'t be able to change it back',
+                    buttons: ['yes', 'no']
+                });
+                dialog.closePromise.then(function (close) {
+                    dialog = false;
+                    if (close.value !== 'yes') {
+                        event.isCompleted = false;
+                    }
+                });
+            };
             vm.addNewEvent = () => {
                 let newId;
                 let newEventCopy;
