@@ -1,0 +1,6 @@
+.tm-radio
+    .flex-item.flex-align-center
+        div
+            input.tm-radio__input(type="radio", id="{{$ctrl.radioId}}", ng-model="$ctrl.radioModel", ng-value="$ctrl.radioValue")
+            label.tm-radio__label(for="{{$ctrl.radioId}}")
+        label.tm-radio__text(ng-if="::$ctrl.radioText", for="{{$ctrl.radioId}}") {{$ctrl.radioText}}

@@ -26,6 +26,12 @@
                 isCompleted: false,
                 start: new Date('2017, 08, 05')
             }
-        ]);
+        ])
+        .constant('eventsFilter', {
+            ALL: 1,
+            FUTURE: 2,
+            PAST: 3,
+            COMPLETED: 4
+        });
 })();
 

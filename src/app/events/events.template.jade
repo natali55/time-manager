@@ -10,9 +10,14 @@ section.tm-events
         textarea.tm-textarea--main(rows="3", ng-model="events.newEvent.description", name="Description", required,
         placeholder="Event Description", ng-class="{'tm-textarea--main--error': events.EventsForm.Description.$invalid && events.EventsForm.Description.$touched}")
         button.tm-btn-style.tm-btn-style--main(type="submit",ng-click="events.addNewEvent()") Add
-    h3.tm-main-page-subheader(ng-if="events.events.length") Events list
+    h3.tm-main-page-subheader(ng-if="events.events.length") Events list {{events.filterValue}}
+    .tm-events__filters
+        radio-btn(radio-id="1", radio-model="events.filterValue", radio-value="events.eventsFilter.ALL", radio-text="All")
+        radio-btn(radio-id="2", radio-model="events.filterValue", radio-value="events.eventsFilter.FUTURE", radio-text="Future")
+        radio-btn(radio-id="3", radio-model="events.filterValue", radio-value="events.eventsFilter.PAST", radio-text="Past")
+        radio-btn(radio-id="4", radio-model="events.filterValue", radio-value="events.eventsFilter.COMPLETED", radio-text="Completed")
     ul.tm-events__list
-        li(ng-repeat="event in events.events track by event.id")
+        li(ng-repeat="event in events.events | filter: events.filterFunction")
             .flex-item.flex-align-start.tm-width-100
                 .tm-events__list__check
                     check-box(check-box-id="{{event.id}}", check-box-model="event.isCompleted", check-box-disabled="event.isCompleted", check-box-change="events.onDoneEvent", element-to-change="event")

@@ -5,6 +5,7 @@
         'app.components.tickingTime',
         'app.components.checkBox',
         'app.components.filters',
-        'app.components.calendar'
+        'app.components.calendar',
+        'app.components.radio'
     ]);
 })();
