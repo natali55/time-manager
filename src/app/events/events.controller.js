@@ -28,12 +28,18 @@
                 });
             };
             vm.onDoneEvent = (event) => {
-                if (!utilsService.checkIfPastDate(event.start)) {
-                    //alert('Opps, this event is future event and can\'t be completed yet');
-                    event.isCompleted = false;
+                if (dialog) {
                     return;
                 }
-                if (dialog) {
+                if (!utilsService.checkIfPastDate(event.start)) {
+                    dialog = ModalsService.confirm({
+                        text: 'Sorry, this event is future event. You can make done only past events!',
+                        buttons: ['ok']
+                    });
+                    dialog.closePromise.then(function () {
+                        dialog = false;
+                        event.isCompleted = false;
+                    });
                     return;
                 }
                 dialog = ModalsService.confirm({

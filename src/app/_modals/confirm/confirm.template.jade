@@ -1,7 +1,7 @@
 .tm-modal.tm-confirm
-    .modals-header.tm-confirm__header(ng-bind-html="text")
+    .modals-header(ng-bind-html="text")
     .modals-footer
-        .tm-btn-style.tm-btn-style--main(ng-if="hasBtn('ok')", ng-click="close('ok')" on-enter-press-action="close('ok')") Ok
-        .tm-btn-style.tm-btn-style--main(ng-if="hasBtn('yes')", ng-click="close('yes')" on-enter-press-action="close('yes')") Yes
-        .tm-btn-style.tm-btn-style--no-cancel(ng-if="hasBtn('no')", ng-click="close('no')") No
-        .tm-btn-style.tm-btn-style--no-cancel(ng-if="hasBtn('cancel')", ng-click="close('cancel')" ) Cancel
+        button.tm-btn-style.tm-btn-style--main(type="button", ng-if="hasBtn('ok')", ng-click="close('ok')" on-enter-press-action="close('ok')") Ok
+        button.tm-btn-style.tm-btn-style--main(type="button", ng-if="hasBtn('yes')", ng-click="close('yes')" on-enter-press-action="close('yes')") Yes
+        button.tm-btn-style.tm-btn-style--no-cancel(type="button", ng-if="hasBtn('no')", ng-click="close('no')") No
+        button.tm-btn-style.tm-btn-style--no-cancel(type="button", ng-if="hasBtn('cancel')", ng-click="close('cancel')" ) Cancel

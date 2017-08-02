@@ -1,0 +1,13 @@
+.tm-modal.tm-event.tm-event--edit
+   .tm-modal-header
+   .tm-modal-content
+      .flex-item
+         .tm-event__label Event Name
+         .tm-event__text {{eventEditCtr.event.title}}
+      .flex-item
+         .tm-event__label Event Description
+         .tm-event__text {{eventEditCtr.event.description}}
+      .flex-item
+         .tm-event__label Event Date
+         .tm-event__text {{eventEditCtr.event.start | date:'EEEE, MMMM d, yyyy'}}
+   .tm-modal-footer

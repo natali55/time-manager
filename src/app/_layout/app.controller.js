@@ -3,6 +3,10 @@
 
     angular
         .module('app')
-        .controller('AppController', function(){
-        });
+        .controller('AppController', ['$rootScope', '$localStorage', function ($rootScope, $localStorage) {
+            let init = function() {
+                $rootScope.events = $localStorage.events || [];
+            };
+            init();
+        }]);
 })();

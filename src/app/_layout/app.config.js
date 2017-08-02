@@ -21,7 +21,7 @@
                     },
                     "footer@app": {
                         templateUrl: 'app/_layout/_footer/footer.template.html',
-                        controller: "FooterController",
+                        controller: 'FooterController',
                         controllerAs: 'footer'
                     }
                 }
