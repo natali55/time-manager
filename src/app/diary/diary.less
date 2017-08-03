@@ -9,4 +9,23 @@
       padding-bottom: 20px;
     }
   }
+  .related-event__link {
+    position: relative;
+    &:hover {
+      .description {
+        display: block;
+      }
+    }
+    .description {
+      display: none;
+      position: absolute;
+      width: 200px;
+      top:0px;
+      left: 100%;
+      padding: 5px 10px;
+      border: 2px solid @body-bg-color;
+      color: @body-bg-color;
+      background-color: @body-color;
+    }
+  }
 }

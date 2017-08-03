@@ -6,7 +6,7 @@
         .config(function ($stateProvider) {
             $stateProvider
                 .state('app.events', {
-                    url: '/events',
+                    url: '/events/:scrollTo',
                     views: {
                         'content@app': {
                             templateUrl: 'app/events/events.template.html',

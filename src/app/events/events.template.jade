@@ -17,7 +17,7 @@ section.tm-events
         radio-btn(radio-id="3", radio-model="events.filterValue", radio-value="events.eventsFilter.PAST", radio-text="Past")
         radio-btn(radio-id="4", radio-model="events.filterValue", radio-value="events.eventsFilter.COMPLETED", radio-text="Completed")
     ul.tm-events__list
-        li(ng-repeat="event in events.events | filter: events.filterFunction")
+        li(ng-repeat="event in events.events | filter: events.filterFunction", id="{{event.id}}")
             .flex-item.flex-align-start.tm-width-100
                 .tm-events__list__check
                     check-box(check-box-id="{{event.id}}", check-box-model="event.isCompleted", check-box-disabled="event.isCompleted", check-box-change="events.onDoneEvent", element-to-change="event")

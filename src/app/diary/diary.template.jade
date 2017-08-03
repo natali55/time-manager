@@ -17,8 +17,17 @@ section.tm-diary
                         span {{note.title}}
                     p(ng-bind-html="note.description | highlight: note.highlightWord")
                     p.tm-minor-date {{note.start | date:'EEEE, MMMM d, yyyy'}}
+                    div(ng-if="!note.relatedTo && note.isEventsSelectOpened")
+                        select(ng-model="note.relatedTo", required,
+                        ng-options="event.title for event in diary.events track by event.id")
+                    .related-event.flex-item.flex-align-center(ng-if="note.relatedTo")
+                        label Associated with event: &nbsp;
+                        a.tm-link.related-event__link(href="", ng-click="diary.goToEvent(note.relatedTo.id)")
+                            | {{note.relatedTo.title}}
+                            span.description {{note.relatedTo.description}}
+                        button.tm-delete-btn(type="button", ng-click="note.relatedTo = false")
+                    button.tm-btn-style.tm-btn-style--main(type="button", ng-if="!note.relatedTo", ng-click="diary.openCloseEventsSelect(note)") Connect with one event
                     button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Highlight important words
-                    //label(for="{{$index}}") T
                     div(ng-if="note.isHighlightInputOpen")
                         input.tm-input--main(type="text", ng-model="note.highlightWord", placeholder="Type the word")
                         button.tm-btn-style.tm-btn-style--small.tm-btn-style--main(type="button",ng-click="note.isHighlightInputOpen = !note.isHighlightInputOpen") Done

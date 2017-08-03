@@ -3,8 +3,8 @@
 
     angular
         .module('app.events')
-        .controller('EventsController', ['$localStorage', 'utilsService', 'defaultEvents', 'ModalsService', 'eventsFilter',
-            function ($localStorage, utilsService, defaultEvents, ModalsService, eventsFilter) {
+        .controller('EventsController', ['$localStorage', '$location', '$anchorScroll', '$stateParams', 'utilsService', 'defaultEvents', 'ModalsService', 'eventsFilter',
+            function ($localStorage, $location, $anchorScroll, $stateParams, utilsService, defaultEvents, ModalsService, eventsFilter) {
                 let vm = this;
                 let dialog;
                 let init = () => {
@@ -14,6 +14,8 @@
                     vm.eventFormOpened = false;
                     vm.newEvent = '';
                     vm.eventsFilter = eventsFilter;
+                    $location.hash($stateParams.scrollTo);
+                    $anchorScroll();
                 };
                 vm.deleteEvent = ($index) => {
                     if (dialog) {
